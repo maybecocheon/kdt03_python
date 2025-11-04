@@ -1,6 +1,6 @@
 print("hello, world!")
 # 1 2 3 4 5
-data = input()
+data = input("입력: ")
 print(type(data))  # input 함수는 항상 문자열로 입력 받음
 
 # 입력받은 값 전부 더하려면?
@@ -14,3 +14,8 @@ print(data)
 
 # 3. 정수 합계
 print(sum(data))
+
+
+# 혹은 각 변수를 따로 저장
+a, b, c, d, e = map(int, input("입력: ").split(" "))
+print(a + b + c + d + e)
