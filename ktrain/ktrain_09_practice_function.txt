@@ -1,0 +1,224 @@
+✅ 머신러닝/딥러닝을 위한 실전형 함수 작성 훈련 과제
+핵심 요소: list comprehension, tuple, dictionary, enumerate(), zip() 집중 사용
+
+🧩 STEP 1. 리스트 처리 함수 (기초 + comprehension)
+📌 과제 1
+점수 리스트를 받아 70점 이상이면 '합격', 그렇지 않으면 '불합격'으로 분류된 문자열 리스트를 반환하세요.
+
+# 입력 예시: [85, 67, 90, 45]
+# 출력: ['합격', '불합격', '합격', '불합격']
+
+def classify_scores(scores):
+    return ['합격' if s >= 70 else '불합격' for s in scores]
+
+📌 과제 2
+이름 리스트를 받아 각 이름에 순번을 붙인 리스트를 반환하세요 (enumerate() 사용).
+
+# 출력 예시: ['1. 홍길동', '2. 김유신', ...]
+
+def numbered_names(names):
+    return [f"{i+1}. {name}" for i, name in enumerate(names)]
+
+🧩 STEP 2. 튜플 & zip() 처리 함수
+📌 과제 3
+이름, 점수 두 리스트를 받아 "홍길동: 85점"과 같은 문자열 리스트를 반환하세요 (zip() 사용).
+
+def combine_name_score(names, scores):
+    return [f"{name}: {score}점" for name, score in zip(names, scores)]
+
+📌 과제 4
+(이름, 점수) 튜플 리스트에서 80점 이상인 사람만 필터링된 튜플 리스트를 반환하세요.
+
+def filter_high_scores(data):
+    return [(name, score) for name, score in data if score >= 80]
+
+🧩 STEP 3. 딕셔너리 생성/변환 함수
+📌 과제 5
+이름 리스트와 점수 리스트를 받아 딕셔너리로 변환하는 함수 (zip() 사용):
+
+
+# 입력: ["홍길동", "김유신"], [85, 90]
+# 출력: {"홍길동": 85, "김유신": 90}
+
+def to_score_dict(names, scores):
+    return {name: score for name, score in zip(names, scores)}
+
+📌 과제 6
+학생 점수 딕셔너리를 받아 합격자 이름만 리스트로 반환하세요 (cutoff 지정 가능).
+
+def passed_students(score_dict, cutoff=70):
+    return [name for name, score in score_dict.items() if score >= cutoff]
+
+🧩 STEP 4. 분석 보고용 함수
+📌 과제 7
+이름, 과목, 점수 리스트를 받아 "1. 홍길동 - 수학: 85점"과 같은 리스트를 반환하세요 (enumerate(), zip() 함께 사용)
+
+def formatted_report(names, subjects, scores):
+    return [f"{i+1}. {name} - {subject}: {score}점"
+            for i, (name, subject, score) in enumerate(zip(names, subjects, scores))]
+
+
+🧩 STEP 5. 집계 및 정제 함수
+📌 과제 8
+문자열 리스트에서 공백 제거 + 소문자 변환 + 중복 제거된 정렬 리스트를 반환하세요.
+
+def clean_unique_words(words):
+    return sorted(list(set([word.strip().lower().replace(" ", "") for word in words])))
+
+📌 과제 9
+다수의 (이름, 점수) 튜플 리스트를 받아, 평균 점수와 최고 점수 학생을 출력하세요.
+
+python
+
+def score_summary(data):
+    avg = sum(score for _, score in data) / len(data)
+    top_student = max(data, key=lambda x: x[1])
+    return avg, top_student
+
+
+💎  STEP 6: 확장 과제 (실전형)
+📌 과제 10: 데이터 전처리 → 분석까지 전 과정 함수 분리 실습
+아래의 리스트를 기반으로 다음 작업을 각각의 함수로 분리하여 구현해보세요.
+
+names = ["홍길동", " 김유신 ", "이순신", "강 감 찬"]
+scores = [85, 70, 60, 90]
+subjects = ["수학", "영어", "과학", "국어"]
+
+함수 분리 목표
+clean_names() → 이름에서 공백 제거 및 정리
+
+to_dict() → 이름과 점수 딕셔너리로 변환
+
+filter_pass() → 70점 이상인 학생만 필터링
+
+report() → "1. 홍길동 - 수학: 85점" 형태로 출력
+
+
+✅ 보충 STEP 1: 조건 기반 분석 함수
+🎯 목표
+조건문 + 반복문을 조합하여 조건 필터링 함수 작성
+
+📝 실습 과제
+숫자 리스트에서 특정 범위(예: 50~80)에 해당하는 값만 반환
+
+리스트에서 가장 많이 등장하는 요소를 반환하는 함수 (빈도수 분석)
+
+학생 점수 딕셔너리를 받아 '합격/불합격' 딕셔너리 반환 (기준 70점)
+
+def pass_fail(scores, cutoff=70):
+    return {name: "합격" if score >= cutoff else "불합격" for name, score in scores.items()}
+
+✅ 보충 STEP 2: 실용 데이터 처리 함수 (ML 친화적)
+🎯 목표
+머신러닝에서 자주 쓰는 데이터 전처리용 함수 구조 익히기
+
+📝 실습 과제
+결측값(NaN 또는 None)이 있는 데이터를 필터링하는 함수
+
+문자열 리스트를 숫자로 바꾸는 매핑 함수 (['남', '여'] → [0,1])
+
+여러 개의 숫자 리스트를 받아 정규화된 리스트(0~1)로 반환
+
+def normalize(data):
+    min_val = min(data)
+    max_val = max(data)
+    return [(x - min_val) / (max_val - min_val) for x in data]
+
+✅ 보충 STEP 3: 분석 보고 함수
+🎯 목표
+데이터를 받아 요약 정보, 통계 결과, 시각화 등 리포트성 출력 생성
+
+📝 실습 과제
+숫자 리스트를 받아 최대, 최소, 평균, 중앙값, 표준편차를 반환하는 함수
+
+dict 형태의 데이터에서 항목별 빈도수를 출력하는 함수
+
+주어진 범주형 데이터를 받아 막대그래프를 그리는 함수 (matplotlib 이용)
+
+💎 보충 STEP 4: 실전형 함수 훈련
+🎯 문제:
+CSV에서 데이터를 읽고, 결측치를 제거하고, 정규화를 적용한 후, 평균 이상인 데이터만 필터링하는 일련의 과정을 함수 단위로 나누어 구현하세요.
+
+📘 확장 아이디어 (머신러닝 관련)
+🧠 머신러닝 함수 작성 실습 과제
+실습 목표: train_test_split, accuracy, one_hot_encode 직접 구현
+
+🔹 공통 소스 데이터
+다음은 간단한 학생 시험 결과 데이터입니다.
+
+data는 (이름, 점수, 레이블)로 구성된 리스트입니다.
+
+labels는 학생의 시험 합격 여부 (1: 합격, 0: 불합격)입니다.
+
+# 실습용 데이터
+data = [
+    ("홍길동", 85, 1),
+    ("김유신", 72, 1),
+    ("이순신", 60, 1),
+    ("강감찬", 45, 0),
+    ("유관순", 92, 1),
+    ("안중근", 55, 0),
+    ("윤봉길", 78, 1),
+    ("신사임당", 33, 0),
+    ("장보고", 67, 1),
+    ("이황", 49, 0)
+]
+
+# 레이블만 따로 분리 (예측 평가용)
+labels = [1, 1, 1, 0, 1, 0, 1, 0, 1, 0]
+
+✅ 실습 1: train_test_split(data, ratio=0.8) 직접 구현
+📌 문제 설명
+data 리스트를 무작위로 섞은 뒤, ratio에 따라 train/test로 분할하는 함수를 작성하세요.
+
+🎯 출력 예시
+
+train, test = train_test_split(data, ratio=0.8)
+print("Train set:", train)
+print("Test set:", test)
+
+💡 힌트
+random.shuffle()
+
+int(len(data) * ratio)로 슬라이싱
+
+✅ 실습 2: accuracy(y_true, y_pred) 함수 구현
+📌 문제 설명
+실제 정답 y_true와 예측값 y_pred를 받아 **정확도(%)**를 계산하는 함수를 구현하세요.
+
+예시:
+
+y_true = [1, 0, 1, 1, 0]
+y_pred = [1, 0, 0, 1, 1]
+
+print(accuracy(y_true, y_pred))  # 출력: 60.0
+
+💡 힌트
+zip()으로 비교
+
+(맞춘 개수 / 전체 개수) * 100
+
+✅ 실습 3: one_hot_encode(labels) 함수 구현
+📌 문제 설명
+주어진 labels 리스트를 원-핫 인코딩된 리스트로 변환하세요.
+
+예시:
+
+labels = [0, 1, 2, 0, 1]
+print(one_hot_encode(labels))
+
+# 출력: [[1,0,0], [0,1,0], [0,0,1], [1,0,0], [0,1,0]]
+
+💡 힌트
+max(labels) → 클래스 개수 확인
+
+[1 if i == label else 0 for i in range(n_classes)] 사용
+
+📦 실습 확장 아이디어
+train_test_split()에서 random_state 옵션 추가 구현해보기
+
+accuracy() 외에도 precision, recall, f1-score 도전
+
+one_hot_encode()를 딕셔너리 매핑으로도 변환 ({0: [1,0], 1: [0,1]})
+
+
