@@ -137,7 +137,27 @@ dict 형태의 데이터에서 항목별 빈도수를 출력하는 함수
 
 💎 보충 STEP 4: 실전형 함수 훈련
 🎯 문제:
-CSV에서 데이터를 읽고, 결측치를 제거하고, 정규화를 적용한 후, 평균 이상인 데이터만 필터링하는 일련의 과정을 함수 단위로 나누어 구현하세요.
+CSV에서 데이터를 읽고, 결측치(값이 없음)를 제거하고, 정규화를 적용한 후, 평균 이상인 데이터만 필터링하는 일련의 과정을 함수 단위로 나누어 구현하세요.
+
+csv 파일 읽어 오는 법
+import csv
+
+def read_csv_as_dicts(filename):
+    rows = []
+    with open(filename, "r", encoding="utf-8-sig") as f:
+        reader = csv.DictReader(f)
+
+        for row in reader:
+            rows.append(row)
+
+    return rows
+
+# 사용 예시
+data = read_csv_as_dicts("sample_data.csv")
+
+for item in data:
+    print(item)
+
 
 📘 확장 아이디어 (머신러닝 관련)
 🧠 머신러닝 함수 작성 실습 과제
